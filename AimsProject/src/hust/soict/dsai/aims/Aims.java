@@ -1,15 +1,14 @@
 package AimsProject.src.hust.soict.dsai.aims;
-import AimsProject.hust.soict.dsai.aims.screen.*;
+import AimsProject.src.hust.soict.dsai.aims.exception.PlayerException;
+import AimsProject.src.hust.soict.dsai.aims.screen.*;
 import AimsProject.src.hust.soict.dsai.aims.cart.Cart;
 import AimsProject.src.hust.soict.dsai.aims.media.CompactDisc;
 import AimsProject.src.hust.soict.dsai.aims.store.Store;
-import AimsProject.src.hust.soict.dsai.aims.media.DigitalVideoDisc;
+import AimsProject.src.hust.soict.dsai.aims.disc.DigitalVideoDisc;
 import AimsProject.src.hust.soict.dsai.aims.media.Media;
 import AimsProject.src.hust.soict.dsai.aims.media.Book;
 
 import javax.naming.LimitExceededException;
-import java.awt.*;
-import java.io.IOException;
 import java.util.Scanner;
 
 public class Aims {
@@ -117,6 +116,7 @@ public class Aims {
                         try {
                             cart.addMedia(resultMedia);
                         } catch (LimitExceededException e) {
+                            e.printStackTrace();
                             throw new RuntimeException(e);
                         }
 //                        System.out.println("Add items to cart successful!");
@@ -132,10 +132,20 @@ public class Aims {
                     if (resultMedia != null) {
                         if (resultMedia instanceof CompactDisc) {
                             CompactDisc resultCD = (CompactDisc) resultMedia;
-                            resultCD.play();
+                            try {
+                                resultCD.play();
+                            } catch (PlayerException e) {
+                                e.printStackTrace();
+                                throw new RuntimeException(e);
+                            }
                         } else if (resultMedia instanceof DigitalVideoDisc) {
                             DigitalVideoDisc resultDVD = (DigitalVideoDisc) resultMedia;
-                            resultDVD.play();
+                            try {
+                                resultDVD.play();
+                            } catch (PlayerException e) {
+                                e.printStackTrace();
+                                throw new RuntimeException(e);
+                            }
                         } else {
                             System.out.println("This items can't be played!");
                         }
@@ -155,31 +165,6 @@ public class Aims {
             }
         } while (!hasPlacedOrder);
     }
-
-//    public static void findMediaMenu() {
-//        do {
-//            System.out.println("Choose how you want to search media:");
-//            System.out.println("---------------------");
-//            System.out.println("1. By title");
-//            System.out.println("2. By id");
-//            System.out.println("0. Back");
-//            System.out.println("---------------------");
-//            System.out.print("Please choose a number (0-1-2): ");
-//            int option = input.nextInt();
-//            switch (option) {
-//                case 0:
-//                    return;
-//                case 1:
-//                    System.out.println("Enter media's title: ");
-//                    String mediaTitle = input.nextLine();
-//                    Media resultMedia = store.searchStore(mediaTitle);
-//                    if (resultMedia != null) {
-//                        cart.addMedia(resultMedia);
-//                        System.out.println
-//                    }
-//            }
-//        } while (!hasPlacedOrder);
-//    }
 
     public static void mediaDetailsMenu(Media media) {
         do {
@@ -204,10 +189,18 @@ public class Aims {
                 case 2:
                     if (media instanceof CompactDisc) {
                         CompactDisc cd = (CompactDisc) media;
-                        cd.play();
+                        try {
+                            cd.play();
+                        } catch (PlayerException e) {
+                            throw new RuntimeException(e);
+                        }
                     } else if (media instanceof DigitalVideoDisc) {
                         DigitalVideoDisc dvd = (DigitalVideoDisc) media;
-                        dvd.play();
+                        try {
+                            dvd.play();
+                        } catch (PlayerException e) {
+                            throw new RuntimeException(e);
+                        }
                     }
                     break;
                 default:
@@ -256,10 +249,20 @@ public class Aims {
                     if (targetMedia != null) {
                         if (targetMedia instanceof CompactDisc) {
                             CompactDisc cd = (CompactDisc) targetMedia;
-                            cd.play();
+                            try {
+                                cd.play();
+                            } catch (PlayerException e) {
+                                e.printStackTrace();
+                                throw new RuntimeException(e);
+                            }
                         } else if (targetMedia instanceof DigitalVideoDisc) {
                             DigitalVideoDisc dvd = (DigitalVideoDisc) targetMedia;
-                            dvd.play();
+                            try {
+                                dvd.play();
+                            } catch (PlayerException e) {
+                                e.printStackTrace();
+                                throw new RuntimeException(e);
+                            }
                         } else {
                             System.out.println("This items can't be played!");
                         }
@@ -355,7 +358,11 @@ public class Aims {
         );
 
         store.addMedia(dvd1, dvd2, dvd3, book1, cd1);
-        cart.addMedia(dvd1, dvd2);
+        try {
+            cart.addMedia(dvd1, dvd2);
+        } catch (LimitExceededException e) {
+            throw new RuntimeException(e);
+        }
         try {
             cart.addMedia(book1);
         } catch (LimitExceededException e) {

@@ -13,7 +13,6 @@ public class Disc extends Media {
     }
 
     public Disc() {
-        // super();
     }
 
     public Disc(int length, String director) {
@@ -22,12 +21,7 @@ public class Disc extends Media {
         this.director = director;
     }
 
-//    public Disc(int length) {
-//        this.length = length;
-//    }
-
     public Disc(String director) {
-        // super();
         this.director = director;
     }
 
