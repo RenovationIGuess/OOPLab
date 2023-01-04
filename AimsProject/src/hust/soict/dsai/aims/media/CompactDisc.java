@@ -1,4 +1,6 @@
 package AimsProject.src.hust.soict.dsai.aims.media;
+import AimsProject.hust.soict.dsai.aims.exception.PlayerException;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -26,6 +28,11 @@ public class CompactDisc extends Disc implements Playable {
         super(length, director);
         this.setTitle(title);
         this.setId(++nbCompactDiscs);
+        this.artist = artist;
+    }
+
+    public CompactDisc(String title, String category, float cost, String director, String artist) {
+        super(title, category, cost, director);
         this.artist = artist;
     }
 
@@ -62,6 +69,18 @@ public class CompactDisc extends Disc implements Playable {
     }
 
     public void play() {
+        if (this.getLength() > 0) {
+            java.util.Iterator iter = tracks.iterator();
+            Track nextTrack;
+            while (iter.hasNext()) {
+                nextTrack = (Track) iter.next();
+//                try {
+//                    nextTrack.play();
+//                } catch (PlayerException e) {
+//                    throw e;
+//                }
+            }
+        }
         for (Track t : this.tracks) {
             t.play();
         }

@@ -1,15 +1,19 @@
 package AimsProject.src.hust.soict.dsai.aims;
-import AimsProject.src.hust.soict.dsai.aims.cart.Carts;
+import AimsProject.hust.soict.dsai.aims.screen.*;
+import AimsProject.src.hust.soict.dsai.aims.cart.Cart;
 import AimsProject.src.hust.soict.dsai.aims.media.CompactDisc;
 import AimsProject.src.hust.soict.dsai.aims.store.Store;
 import AimsProject.src.hust.soict.dsai.aims.media.DigitalVideoDisc;
 import AimsProject.src.hust.soict.dsai.aims.media.Media;
 import AimsProject.src.hust.soict.dsai.aims.media.Book;
 
+import javax.naming.LimitExceededException;
+import java.awt.*;
+import java.io.IOException;
 import java.util.Scanner;
 
 public class Aims {
-    public static Carts cart = new Carts();
+    public static Cart cart = new Cart();
     public static Store store = new Store();
 
     public static Scanner input = new Scanner(System.in);
@@ -110,7 +114,11 @@ public class Aims {
                     mediaTitle = input.nextLine();
                     resultMedia = store.searchStore(mediaTitle);
                     if (resultMedia != null) {
-                        cart.addMedia(resultMedia);
+                        try {
+                            cart.addMedia(resultMedia);
+                        } catch (LimitExceededException e) {
+                            throw new RuntimeException(e);
+                        }
 //                        System.out.println("Add items to cart successful!");
                         System.out.println("Current number of items in cart: " + cart.getNumberOfOrderedItems() + ".");
                     } else {
@@ -187,7 +195,11 @@ public class Aims {
                 case 0:
                     return;
                 case 1:
-                    cart.addMedia(media);
+                    try {
+                        cart.addMedia(media);
+                    } catch (LimitExceededException e) {
+                        throw new RuntimeException(e);
+                    }
                     break;
                 case 2:
                     if (media instanceof CompactDisc) {
@@ -343,7 +355,18 @@ public class Aims {
         );
 
         store.addMedia(dvd1, dvd2, dvd3, book1, cd1);
+        cart.addMedia(dvd1, dvd2);
+        try {
+            cart.addMedia(book1);
+        } catch (LimitExceededException e) {
+            throw new RuntimeException(e);
+        }
 
-        showMenu();
+        // showMenu();
+        new CartScreen(cart, store);
+        new AddDigitalVideoDiscToStoreScreen(store);
+        new AddCompactDiscToStoreScreen(store);
+        new AddBookToStoreScreen(store);
+        new StoreScreen(store, cart);
     }
 }

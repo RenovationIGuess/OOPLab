@@ -3,10 +3,6 @@ import java.util.List;
 import java.util.ArrayList;
 
 public class Book extends Media {
-//    private int id;
-//    private String title;
-//    private String category;
-//    private float cost;
     private static int nbBooks = 0;
     private List<String> authors = new ArrayList<String>();
 
@@ -19,41 +15,17 @@ public class Book extends Media {
         this.setId(++nbBooks);
     }
 
-//    public int getId() {
-//        return id;
-//    }
-//
-//    public String getTitle() {
-//        return title;
-//    }
-//
-//    public String getCategory() {
-//        return category;
-//    }
-//
-//    public float getCost() {
-//        return cost;
-//    }
+    public Book(String title, String category, float cost, String ...authors) {
+        super(title, category, cost);
+        for (String authorName: authors){
+            this.addAuthor(authorName);
+        }
+        this.setId(++nbBooks);
+    }
 
     public List<String> getAuthors() {
         return authors;
     }
-
-//    public void setId(int id) {
-//        this.id = id;
-//    }
-//
-//    public void setTitle(String title) {
-//        this.title = title;
-//    }
-//
-//    public void setCategory(String category) {
-//        this.category = category;
-//    }
-//
-//    public void setCost(float cost) {
-//        this.cost = cost;
-//    }
 
     public void setAuthors(List<String> authors) {
         this.authors = authors;

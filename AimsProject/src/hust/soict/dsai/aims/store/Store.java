@@ -1,14 +1,15 @@
 package AimsProject.src.hust.soict.dsai.aims.store;
 
 import AimsProject.src.hust.soict.dsai.aims.media.Media;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+
 import java.util.ArrayList;
 import java.util.List;
 
-import AimsProject.src.hust.soict.dsai.aims.media.DigitalVideoDisc;
-
 public class Store {
 	// DigitalVideoDisc itemsInStore[];
-	private List<Media> itemsInStore = new ArrayList<Media>();
+	private ObservableList<Media> itemsInStore = FXCollections.observableArrayList();
 	
 	public Store() {
 		
@@ -44,6 +45,10 @@ public class Store {
             System.out.println(m.toString());
         }
 //        System.out.println();
+    }
+
+    public ObservableList<Media> getItemsInStore() {
+        return this.itemsInStore;
     }
 
     public Media searchStore(String title) {

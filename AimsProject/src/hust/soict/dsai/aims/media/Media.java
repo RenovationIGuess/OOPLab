@@ -45,9 +45,10 @@ public abstract class Media {
         this.cost = cost;
     }
 
-    @Override
-    public boolean equals(Object o) {
-        return this.title.equals(((Media)o).getTitle());
+    // @Override
+    public boolean equals(Media o) {
+        if (this.title.equals((o).getTitle())) return true;
+        else return false;
     }
 
     public String toString() {

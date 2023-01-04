@@ -1,11 +1,11 @@
 package AimsProject.src.hust.soict.dsai.test.cart;
-import AimsProject.src.hust.soict.dsai.aims.cart.Carts;
+import AimsProject.src.hust.soict.dsai.aims.cart.Cart;
 import AimsProject.src.hust.soict.dsai.aims.media.DigitalVideoDisc;
 
 public class CartTest {
 	public static void main(String[] args) {
 		// Create new cart
-		Carts cart = new Carts();
+		Cart cart = new Cart();
 		
 		// Create new dvd obj and add them to the cart
 		DigitalVideoDisc dvd1 = new DigitalVideoDisc("The Lion King", "Animation", "Roger Allers", 87, 19.95f);
