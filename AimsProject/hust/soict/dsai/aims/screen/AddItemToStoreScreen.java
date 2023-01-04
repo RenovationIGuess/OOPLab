@@ -8,7 +8,6 @@ import javax.swing.*;
 import java.awt.*;
 
 public class AddItemToStoreScreen extends ScreenControl {
-//    protected static Cart cart;
     protected static Store store;
 
     protected JTextField titleField;

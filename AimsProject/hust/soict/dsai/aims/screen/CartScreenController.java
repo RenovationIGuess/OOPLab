@@ -176,7 +176,6 @@ public class CartScreenController {
             }
         });
         d.add(new JLabel("Click here to escape"));
-        // c.fill = GridBagConstraints.HORIZONTAL;
         c.insets = new Insets(0, 10, 0, 0);
         d.add(b, c);
         d.setSize(300, 100);
