@@ -80,7 +80,7 @@ public class MediaStore extends JPanel {
             } catch (PlayerException ex) {
                 JOptionPane.showMessageDialog(
                         f,
-                        "Media's length is non-positive!",
+                        ex.getMessage(),
                         "Illegal media length",
                         JOptionPane.ERROR_MESSAGE
                 );
