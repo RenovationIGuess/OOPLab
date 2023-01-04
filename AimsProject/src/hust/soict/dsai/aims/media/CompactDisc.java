@@ -1,17 +1,15 @@
 package AimsProject.src.hust.soict.dsai.aims.media;
-import AimsProject.hust.soict.dsai.aims.exception.PlayerException;
+
+import AimsProject.src.hust.soict.dsai.aims.exception.PlayerException;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 public class CompactDisc extends Disc implements Playable {
     private  static int nbCompactDiscs = 0;
     private String artist;
     private List<Track> tracks = new ArrayList<Track>();
-
-    public String getArtist() {
-        return artist;
-    }
 
     public CompactDisc() {
         this.setId(++nbCompactDiscs);
@@ -34,6 +32,10 @@ public class CompactDisc extends Disc implements Playable {
     public CompactDisc(String title, String category, float cost, String director, String artist) {
         super(title, category, cost, director);
         this.artist = artist;
+    }
+
+    public String getArtist() {
+        return artist;
     }
 
     public void addTrack(Track newTrack) {
@@ -68,21 +70,23 @@ public class CompactDisc extends Disc implements Playable {
         return totalLength;
     }
 
-    public void play() {
+    public void play() throws PlayerException {
         if (this.getLength() > 0) {
-            java.util.Iterator iter = tracks.iterator();
+            Iterator<Track> iter = tracks.iterator();
             Track nextTrack;
             while (iter.hasNext()) {
-                nextTrack = (Track) iter.next();
-//                try {
-//                    nextTrack.play();
-//                } catch (PlayerException e) {
-//                    throw e;
-//                }
+                nextTrack = iter.next();
+                nextTrack.play();
             }
+        } else {
+            throw new PlayerException("ERROR: CD's length is non-positive!");
         }
         for (Track t : this.tracks) {
-            t.play();
+            try {
+                t.play();
+            } catch (PlayerException e) {
+                throw new RuntimeException(e);
+            }
         }
     }
 

@@ -1,5 +1,7 @@
 package AimsProject.src.hust.soict.dsai.aims.media;
 
+import AimsProject.src.hust.soict.dsai.aims.exception.PlayerException;
+
 public class Track implements Playable {
     private String title;
     private int length;
@@ -21,18 +23,18 @@ public class Track implements Playable {
         this.length = length;
     }
 
-    public void play() {
+    public void play() throws PlayerException {
         if (this.getLength() > 0) {
             System.out.println("Playing DVD: " + this.getTitle());
             System.out.println("DVD length: " + this.getLength());
         } else {
-
+            throw new PlayerException("ERROR: DVD's length is not positive!");
         }
 
     }
 
-    public boolean equals(Track o) {
-        if (this.title == o.getTitle() && this.length == o.getLength()) {
+    public boolean equals(Object o) {
+        if (this.title == ((Track) o).getTitle() && this.length == ((Track) o).getLength()) {
             return true;
         }
         return false;

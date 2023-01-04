@@ -13,6 +13,16 @@ public abstract class Media {
     public static final Comparator<Media> COMPARE_BY_COST_TITLE =
             new MediaComparatorByCostTitle();
 
+    public Media() {
+
+    }
+
+    public Media(String title, String category, float cost) {
+        this.title = title;
+        this.category = category;
+        this.cost = cost;
+    }
+
     public int getId() {
         return id;
     }
@@ -46,9 +56,18 @@ public abstract class Media {
     }
 
     // @Override
-    public boolean equals(Media o) {
-        if (this.title.equals((o).getTitle())) return true;
-        else return false;
+    public boolean equals(Object o) {
+        if (o instanceof Media) {
+            try {
+                String title = ((Media) o).getTitle();
+                if (this.isMatch(title)) return true;
+            } catch (NullPointerException e) {
+                e.printStackTrace();
+            } catch (ClassCastException e) {
+                e.printStackTrace();
+            }
+        }
+        return false;
     }
 
     public String toString() {
@@ -60,25 +79,11 @@ public abstract class Media {
                 ".";
     }
 
-    public Media() {
-
-    }
-
-    public Media(String title, String category, float cost) {
-        this.title = title;
-        this.category = category;
-        this.cost = cost;
-    }
-
     public boolean isMatch(String title) {
-        return this.title.equals(title);
+        return this.title.toLowerCase().contains(title.toLowerCase());
     }
 
     public boolean isMatch(int id) {
         return (this.id == id);
     }
-
-//    public boolean equals(Object obj) {
-//        return this.title.equals(((Media)obj).getTitle());
-//    }
 }

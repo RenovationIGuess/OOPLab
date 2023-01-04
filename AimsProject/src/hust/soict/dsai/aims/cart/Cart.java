@@ -34,9 +34,10 @@ public class Cart {
         }
     }
 
-    public void addMedia(Media mediaList[]) {
+    public void addMedia(Media mediaList[]) throws LimitExceededException {
         if (itemsOrdered.size() + mediaList.length >= MAX_NUMBERS_ORDERED) {
             System.out.println("Not enough space left to add " + mediaList.length + " items!");
+            throw new LimitExceededException("ERROR: the number of media has reached its limit!");
         } else {
             for (Media m : mediaList) {
                 try {
@@ -49,9 +50,10 @@ public class Cart {
         }
     }
 
-    public void addMedia(Media m1, Media m2) {
+    public void addMedia(Media m1, Media m2) throws LimitExceededException {
         if (itemsOrdered.size() + 2 >= MAX_NUMBERS_ORDERED) {
             System.out.println("Not enough space left to add 2 items!");
+            throw new LimitExceededException("ERROR: the number of media has reached its limit!");
         } else {
             try {
                 this.addMedia(m1);
@@ -76,22 +78,20 @@ public class Cart {
                     System.out.println("Delete successful!");
                 } else {
                     System.out.println("Delete failed!");
+                    // throw new RuntimeException("ERROR: Something wrong!");
                 }
             } else {
                 System.out.println("Item not found!");
+                // throw new Exception("ERROR: Item not found!");
             }
         }
     }
 
     public float totalCost() {
         float total = 0.0f;
-//        if (this.itemsOrdered.size() == 0) {
-//            System.out.println("Empty! Nothing in your order list.");
-//        } else {
         for (Media m : this.itemsOrdered) {
             total += m.getCost();
         }
-//        }
         return total;
     }
 
